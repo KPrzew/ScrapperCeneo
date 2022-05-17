@@ -27,18 +27,17 @@ selectors = {
             "bought" : ["span.user-post__published > time:nth-child(2)","datetime", True]
         }
 
-
+item_id = input("Insert item id:\n")
+url = f"https://www.ceneo.pl/{item_id}#tab=reviews"
 all_opinions=[]
 url="https://www.ceneo.pl/63490289#tab=reviews"
 while(url):
     response=requests.get(url)
-
     page=BeautifulSoup(response.text, 'html.parser')
 
 
     opinions = page.select("div.js_product-review")
     for opinion in opinions:
-
         single_opinion = {
             key:get_item(opinion,*value)
             for key, value in selectors.items()
